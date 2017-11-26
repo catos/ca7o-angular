@@ -2,6 +2,14 @@
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.5.4.
 
+## References
+- Migrating to HttpClient: http://brianflove.com/2017/07/21/migrating-to-http-client/
+- MEAN App Unplugged: https://github.com/blove/mean-material-reactive
+
+## TODO
+- Continue on user-edit
+- Rename user-list to user-index
+
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
