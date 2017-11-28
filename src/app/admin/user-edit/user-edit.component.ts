@@ -10,12 +10,13 @@ import { User } from '../../core/models/user.model';
     styleUrls: ['./user-edit.component.css']
 })
 export class UserEditComponent implements OnInit {
-    user?: User
+    user: User    
 
     constructor(
         private userService: UserService,
         private route: ActivatedRoute
-    ) { }
+    ) {
+        this.user = new User() }
 
     ngOnInit() {
         let id = this.route.snapshot.paramMap.get('id');

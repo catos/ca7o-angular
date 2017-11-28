@@ -1,6 +1,10 @@
 <h1>Users</h1>
 
-<table>
+<table class="table table-bordered table-hover">
+    <tr>
+        <th>Name</th>
+        <th>Username</th>
+    </tr>
     <tr *ngFor="let user of users">
         <td><a [routerLink]="['/admin/users/', user._id]">{{user.name}}</a></td>
         <td>{{user.username}}</td>
