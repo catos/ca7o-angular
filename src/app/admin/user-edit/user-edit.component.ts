@@ -26,4 +26,7 @@ export class UserEditComponent implements OnInit {
         )
     }
 
+    onSubmit() {
+        console.log('onSubmit()')
+    }
 }
