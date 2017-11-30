@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 import { UserService } from '../../core/user.service';
 import { User } from '../../core/models/user.model';
@@ -10,13 +10,15 @@ import { User } from '../../core/models/user.model';
     styleUrls: ['./user-edit.component.css']
 })
 export class UserEditComponent implements OnInit {
-    user: User    
+    user: User
 
     constructor(
         private userService: UserService,
+        private router: Router,
         private route: ActivatedRoute
     ) {
-        this.user = new User() }
+        this.user = new User()
+    }
 
     ngOnInit() {
         let id = this.route.snapshot.paramMap.get('id');
@@ -27,9 +29,11 @@ export class UserEditComponent implements OnInit {
     }
 
     onSubmit() {
-        console.log('onSubmit()', this.user)
         this.userService.update(this.user).subscribe(
-            user => this.user = user,
+            user => {
+                this.user = user
+                this.router.navigate(['/admin'])
+            },
             err => console.log('err', err)
         )
     }

@@ -7,8 +7,11 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 - MEAN App Unplugged: https://github.com/blove/mean-material-reactive
 
 ## TODO
-- Continue on user-edit
-- Rename user-list to user-index
+- Notifications on user edit type required
+- Delete user
+- Authentication
+- Chat
+- Wesketch
 
 ## Deploy
 - git push heroku master

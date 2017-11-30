@@ -4,11 +4,11 @@ import { UserService } from '../../core/user.service';
 import { User } from '../../core/models/user.model';
 
 @Component({
-    selector: 'ca7o-user-list',
-    templateUrl: './user-list.component.html',
-    styleUrls: ['./user-list.component.css']
+    selector: 'ca7o-user-index',
+    templateUrl: './user-index.component.html',
+    styleUrls: ['./user-index.component.css']
 })
-export class UserListComponent implements OnInit {
+export class UserIndexComponent implements OnInit {
     users: Array<User>
 
     constructor(private userService: UserService) { }

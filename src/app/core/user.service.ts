@@ -7,7 +7,8 @@ import { User } from './models/user.model'
 
 @Injectable()
 export class UserService {
-    private readonly baseApiUrl = 'https://ca7o-server.herokuapp.com/api/users'
+    // private readonly baseApiUrl = 'https://ca7o-server.herokuapp.com/api/users'
+    private readonly baseApiUrl = 'http://localhost:8080/api/users'
 
     constructor(private http: HttpClient) { }
 
@@ -15,9 +16,9 @@ export class UserService {
         return this.http.get<Array<User>>(this.baseApiUrl)
     }
 
-    // public create(hero: Hero): Observable<Hero> {
-    //     return this.http.post<Hero>(this.URL, hero);
-    // }
+    public create(user: User): Observable<User> {
+        return this.http.post<User>(this.baseApiUrl, user);
+    }
 
     // public delete(hero: Hero): Observable<Hero> {
     //     return this.http.delete<Hero>(`${this.URL}/${hero._id}`);
