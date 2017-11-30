@@ -27,6 +27,10 @@ export class UserEditComponent implements OnInit {
     }
 
     onSubmit() {
-        console.log('onSubmit()')
+        console.log('onSubmit()', this.user)
+        this.userService.update(this.user).subscribe(
+            user => this.user = user,
+            err => console.log('err', err)
+        )
     }
 }

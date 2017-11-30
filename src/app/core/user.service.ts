@@ -16,11 +16,11 @@ export class UserService {
     }
 
     // public create(hero: Hero): Observable<Hero> {
-    //     return this.httpClient.post<Hero>(this.URL, hero);
+    //     return this.http.post<Hero>(this.URL, hero);
     // }
 
     // public delete(hero: Hero): Observable<Hero> {
-    //     return this.httpClient.delete<Hero>(`${this.URL}/${hero._id}`);
+    //     return this.http.delete<Hero>(`${this.URL}/${hero._id}`);
     // }
 
     public get(id: string): Observable<User> {
@@ -28,10 +28,10 @@ export class UserService {
     }
 
     // public list(): Observable<Array<Hero>> {
-    //     return this.httpClient.get<Array<Hero>>(this.URL);
+    //     return this.http.get<Array<Hero>>(this.URL);
     // }
 
-    // public update(hero: Hero): Observable<Hero> {
-    //     return this.httpClient.put<Hero>(`${this.URL}/${hero._id}`, hero);
-    // }
+    public update(user: User): Observable<User> {
+        return this.http.put<User>(`${this.baseApiUrl}/${user._id}`, user);
+    }
 }
