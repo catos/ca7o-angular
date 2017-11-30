@@ -7,8 +7,8 @@ import { User } from './models/user.model'
 
 @Injectable()
 export class UserService {
-    // private readonly baseApiUrl = 'https://ca7o-server.herokuapp.com/api/users'
-    private readonly baseApiUrl = 'http://localhost:8080/api/users'
+    private readonly baseApiUrl = 'https://ca7o-server.herokuapp.com/api/users'
+    // private readonly baseApiUrl = 'http://localhost:8080/api/users'
 
     constructor(private http: HttpClient) { }
 

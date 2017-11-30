@@ -7,6 +7,7 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 - MEAN App Unplugged: https://github.com/blove/mean-material-reactive
 
 ## TODO
+- Fix UserService apiurl
 - Notifications on user edit type required
 - Delete user
 - Authentication
