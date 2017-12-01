@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http'
 
+import { environment } from '../../environments/environment'
 import { Observable } from 'rxjs/Observable';
 
 import { User } from './models/user.model'
 
 @Injectable()
 export class UserService {
-    private readonly baseApiUrl = 'https://ca7o-server.herokuapp.com/api/users'
-    // private readonly baseApiUrl = 'http://localhost:8080/api/users'
+    private readonly baseApiUrl = `${environment.apiUrl}/api/users`
 
     constructor(private http: HttpClient) { }
 
