@@ -7,9 +7,9 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 - MEAN App Unplugged: https://github.com/blove/mean-material-reactive
 
 ## TODO
+- user.api.ts: remember to keep filter-code when importing ca7o-api-server code
 - Create user must check is email already exist!
 - Notifications on user edit type required
-- Delete user
 - http://brianflove.com/2017/07/17/angular-delete-confirmation/
 - Authentication
 - Chat
