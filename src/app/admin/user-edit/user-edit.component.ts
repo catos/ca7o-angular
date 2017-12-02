@@ -37,4 +37,13 @@ export class UserEditComponent implements OnInit {
             err => console.log('err', err)
         )
     }
+
+    delete() {
+        this.userService.delete(this.user).subscribe(
+            user => {
+                this.router.navigate(['/admin'])
+            },
+            err => console.log('err', err)
+        )
+    }
 }

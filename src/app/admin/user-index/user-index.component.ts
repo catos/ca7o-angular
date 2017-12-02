@@ -10,15 +10,23 @@ import { User } from '../../core/models/user.model';
 })
 export class UserIndexComponent implements OnInit {
     users: Array<User>
+    filter: string
 
     constructor(private userService: UserService) { }
 
     ngOnInit() {
-        this.userService.all()
-            .subscribe(
-                users => this.users = users,
-                err => console.log('err', err)
-            )
+        this.getUsers()
     }
 
+    applyFilter() {
+        console.log('filter', this.filter);
+        this.getUsers(this.filter)
+    }
+
+    getUsers(filter?: string) {
+        this.userService.all(filter).subscribe(
+            users => this.users = users,
+            err => console.log('err', err)
+        )
+    }
 }

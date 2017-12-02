@@ -57,7 +57,7 @@
             <button [disabled]="!userForm.valid" type="submit" class="btn btn-primary">Update</button>
         </div>
         <div class="col text-right">
-            <a class="text-danger" href="">Delete user</a>
+            <button class="btn btn-danger" (click)="delete()">Delete user</button>
         </div>
     </div>
 </form>
