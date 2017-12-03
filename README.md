@@ -2,9 +2,10 @@
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.5.4.
 
-## References
+## References & Tools
 - Migrating to HttpClient: http://brianflove.com/2017/07/21/migrating-to-http-client/
 - MEAN App Unplugged: https://github.com/blove/mean-material-reactive
+- https://www.json-generator.com/
 
 ## TODO
 - user.api.ts: remember to keep filter-code when importing ca7o-api-server code
@@ -23,7 +24,6 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 - heroku login
 - heroku git:remote -a ca7o
 - "postinstall": "ng build --aot --prod"
-
 
 ## Development server
 

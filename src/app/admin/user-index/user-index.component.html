@@ -1,12 +1,7 @@
 <h1>Users</h1>
 
-<div class="input-group">
-    <input class="form-control" type="text" placeholder="Filter users on..." [(ngModel)]="filter" />
-    <span class="input-group-btn">
-        <button class="btn btn-primary" (click)="applyFilter()">Filter</button>
-    </span>
-</div>
-
+<input class="form-control" type="text" placeholder="Filter users on..." [(ngModel)]="filter" (keyup)="applyFilter()" />
+<a [routerLink]="" *ngIf="filter.length > 2" (click)="resetFilter()">Reset</a>
 <hr>
 
 <table class="table table-bordered table-hover">

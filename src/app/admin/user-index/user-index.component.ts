@@ -9,8 +9,9 @@ import { User } from '../../core/models/user.model';
     styleUrls: ['./user-index.component.css']
 })
 export class UserIndexComponent implements OnInit {
+    filterThreshold: number = 3
     users: Array<User>
-    filter: string
+    filter: string = ''
 
     constructor(private userService: UserService) { }
 
@@ -19,11 +20,20 @@ export class UserIndexComponent implements OnInit {
     }
 
     applyFilter() {
-        console.log('filter', this.filter);
-        this.getUsers(this.filter)
+        if (this.filter.length >= this.filterThreshold) {
+            this.getUsers(this.filter)
+        }
+
+        if (this.filter.length === (this.filterThreshold - 1)) {
+            this.getUsers()
+        }
     }
 
-    getUsers(filter?: string) {
+    resetFilter() {
+        this.filter = ''
+    }
+
+    private getUsers(filter?: string) {
         this.userService.all(filter).subscribe(
             users => this.users = users,
             err => console.log('err', err)
