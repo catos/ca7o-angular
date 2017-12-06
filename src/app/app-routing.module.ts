@@ -10,6 +10,12 @@ const routes: Routes = [
     // { path: 'forgot-password', component: ForgotPasswordComponent },
     { path: '', redirectTo: 'content', pathMatch: 'full' },
     {
+        path: 'auth',
+        loadChildren: 'app/auth/auth.module#AuthModule',
+        // TODO: hva er egentlig preload, og hva skal preloades ?
+        // data: { preload: true }
+    },
+    {
         path: 'content',
         loadChildren: 'app/content/content.module#ContentModule',
         // TODO: hva er egentlig preload, og hva skal preloades ?

@@ -1,6 +1,6 @@
-import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http'
-import { Observable } from 'rxjs/Observable';
+import { Injectable } from '@angular/core'
+import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http'
+import { Observable } from 'rxjs/Observable'
 
 import { environment } from '../../environments/environment'
 import { User } from './models/user.model'
@@ -20,20 +20,21 @@ export class UserService {
     }
 
     public create(user: User): Observable<User> {
-        return this.http.post<User>(this.baseApiUrl, user);
+        return this.http.post<User>(this.baseApiUrl, user)
     }
 
     public delete(user: User): Observable<User> {
-        let result = this.http.delete<User>(`${this.baseApiUrl}/${user._id}`);
+        let result = this.http.delete<User>(`${this.baseApiUrl}/${user._id}`)
         console.log('result', result)
         return result
     }
 
     public get(id: string): Observable<User> {
-        return this.http.get<User>(`${this.baseApiUrl}/${id}`);
+        return this.http.get<User>(`${this.baseApiUrl}/${id}`)
     }
 
     public update(user: User): Observable<User> {
-        return this.http.put<User>(`${this.baseApiUrl}/${user._id}`, user);
+        return this.http.put<User>(`${this.baseApiUrl}/${user._id}`, user)
     }
+
 }

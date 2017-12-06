@@ -8,11 +8,13 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 - https://www.json-generator.com/
 
 ## TODO
-- user.api.ts: remember to keep filter-code when importing ca7o-api-server code
+- Continue: auth.service.ts -> login, map success and error response to same object
+- Authentication:
+ - https://ryanchenkie.com/angular-authentication-using-the-http-client-and-http-interceptors
+ - https://blog.angular-university.io/angular-jwt-authentication/
 - Create user must check is email already exist!
 - Notifications on user edit type required
 - http://brianflove.com/2017/07/17/angular-delete-confirmation/
-- Authentication
 - Chat
 - Wesketch
 
