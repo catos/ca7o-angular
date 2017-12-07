@@ -5,7 +5,7 @@ import { Observable } from 'rxjs/Observable'
 import 'rxjs/add/operator/map'
 
 import { environment } from '../../environments/environment'
-import { ILoginResponse } from './login-response.interface';
+import { ITokenResponse } from './token-response.interface';
 
 @Injectable()
 export class AuthService {
@@ -48,23 +48,24 @@ export class AuthService {
         localStorage.removeItem(this.tokenName)
     }
 
-    public login(username: string, password: string): Observable<boolean> {
+    public login(username: string, password: string): Observable<ITokenResponse> {
         const body = JSON.stringify({ username: username, password: password })
         const headers = new HttpHeaders({ 'Content-Type': 'application/json' })
-        console.log('${this.baseApiUrl}/login', `${this.baseApiUrl}/login`);
         return this.http
-            .post<ILoginResponse>(`${this.baseApiUrl}/login`, body, { headers: headers })
+            .post<ITokenResponse>(`${this.baseApiUrl}/login`, body, { headers: headers })
             .map(
-                tokenResponse => {
-                    this.setToken(tokenResponse.token)
-                    console.log('tokenResponse', tokenResponse)
-                    return true
+            (response: ITokenResponse) => {
+                if (response.token) {
+                    this.setToken(response.token)
+                    return response
+                } else {
+                    return response
                 }
-                // ,
-                // (err: ILoginResponse) => {
-                //     console.log('err', err)
-                //     return false
-                // }
+            },
+            (err) => {
+                console.log('err', err)
+                return err
+            }
             )
     }
 

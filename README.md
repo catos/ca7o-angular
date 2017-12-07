@@ -8,7 +8,6 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 - https://www.json-generator.com/
 
 ## TODO
-- Continue: auth.service.ts -> login, map success and error response to same object
 - Authentication:
  - https://ryanchenkie.com/angular-authentication-using-the-http-client-and-http-interceptors
  - https://blog.angular-university.io/angular-jwt-authentication/

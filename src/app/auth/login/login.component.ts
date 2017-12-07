@@ -23,15 +23,15 @@ export class LoginComponent {
             .login(this.model.username, this.model.password)
             .subscribe(
             result => {
-                if (result === true) {
-                    // this.router.navigate(['/'])
+                if (result.success === true) {
+                    this.router.navigate(['/'])
                 } else {
-                    this.error = 'Username or password is incorrect'
+                    this.error = result.message
                     this.loading = false
                 }
             },
             err => {
-                this.error = 'Username or password is incorrect'
+                this.error = `Error occured: ${err.message}`
                 this.loading = false
             }
             )
