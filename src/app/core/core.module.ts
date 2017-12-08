@@ -4,9 +4,9 @@ import { RouterModule } from '@angular/router'
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http'
 
 import { NavBarComponent } from './nav-bar/nav-bar.component';
-import { UserService } from './user.service';
-import { AuthService } from './auth.service';
-import { HttpAuthClient } from './http-auth-client';
+import { UserService } from './services/user.service';
+import { AuthService } from './services/auth.service';
+import { HttpAuthClient } from './services/http-auth-client';
 
 @NgModule({
     imports: [

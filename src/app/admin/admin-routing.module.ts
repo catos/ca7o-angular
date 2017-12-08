@@ -7,7 +7,7 @@ import { UserCreateComponent } from './user-create/user-create.component'
 import { UserEditComponent } from "./user-edit/user-edit.component";
 
 const routes: Routes = [{
-    path: '',
+    path: 'admin',
     component: AdminComponent,    
     children: [
         { path: '', component: UserIndexComponent },

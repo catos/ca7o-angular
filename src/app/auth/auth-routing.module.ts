@@ -5,6 +5,10 @@ import { LoginComponent } from './login/login.component'
 
 const routes: Routes = [
     { path: 'login', component: LoginComponent }
+    // TODO: Add register
+    // { path: 'register', component: RegisterComponent },
+    // TODO: Add forgot-password
+    // { path: 'forgot-password', component: ForgotPasswordComponent },
 ]
 
 @NgModule({

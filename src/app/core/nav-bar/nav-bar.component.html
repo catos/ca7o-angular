@@ -8,31 +8,31 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item active">
-                <a class="nav-link" [routerLink]="['/content']">News
+                <a class="nav-link" [routerLink]="['/news']">News
                     <span class="sr-only">(current)</span>
                 </a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" [routerLink]="['/admin']">Admin</a>
-            </li>
-            <li>
+        </ul>
+        <ul class="navbar-nav ml-auto">
+            <li *ngIf="!auth.currentUser">
                 <a class="nav-link" [routerLink]="['/login']">Login</a>
             </li>
-            <li>
-                <a class="nav-link" [routerLink]="" (click)="logout()">Logout</a>
-            </li>
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
-                    aria-expanded="false">
-                    Dev
-                </a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" target="_blank" href="https://ca7o.herokuapp.com/">ca7o (prod)</a>
-                    <a class="dropdown-item" target="_blank" href="https://github.com/catos">Catos github</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" target="_blank" href="https://angular.io/tutorial">Angular</a>
-                    <a class="dropdown-item" target="_blank" href="https://getbootstrap.com/">Bootstrap</a>
-                    <a class="dropdown-item" target="_blank" rel="noopener" href="https://github.com/angular/angular-cli/wiki">CLI Documentation</a>
+            <li *ngIf="auth.currentUser" class="nav-item dropdown">
+                <a class="nav-link" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" [routerLink]="">{{auth.currentUser.name}}</a>
+                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
+                    <a class="dropdown-item" [routerLink]="" (click)="logout()">Logout</a>
+
+                    <div *ngIf="auth.currentUser.username.includes('cskogholt@gmail.com')">
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item text-danger" [routerLink]="['/admin']">Admin</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item text-muted" target="_blank" href="https://ca7o.herokuapp.com/">ca7o (prod)</a>
+                        <a class="dropdown-item text-muted" target="_blank" href="https://github.com/catos">Catos github</a>
+                        <a class="dropdown-item text-muted" target="_blank" href="https://angular.io/tutorial">Angular</a>
+                        <a class="dropdown-item text-muted" target="_blank" rel="noopener" href="https://github.com/angular/angular-cli/wiki">CLI Documentation</a>
+                        <a class="dropdown-item text-muted" target="_blank" href="https://getbootstrap.com/">Bootstrap</a>
+                        <a class="dropdown-item text-muted" target="_blank" href="https://fontawesome.com/icons?d=gallery">Fontawesome</a>
+                    </div>
                 </div>
             </li>
         </ul>

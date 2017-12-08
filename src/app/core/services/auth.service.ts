@@ -5,8 +5,9 @@ import { Response } from '@angular/http'
 import { Observable } from 'rxjs/Observable'
 import 'rxjs/add/operator/map'
 
-import { environment } from '../../environments/environment'
-import { ITokenResponse } from './token-response.interface';
+import { environment } from '../../../environments/environment'
+import { ITokenResponse } from '../models/token-response.interface';
+import { User } from '../models/user.model';
 
 @Injectable()
 export class AuthService {
@@ -14,24 +15,35 @@ export class AuthService {
     private tokenName: string = 'ca7o-token'
 
     // TODO: implements returnUrl...
-    public returnUrl: string
+    returnUrl: string
+    currentUser: User = null
 
-    constructor(private http: HttpClient) {}
+    constructor(private http: HttpClient) {
+        this.currentUser = this.parseJwt(this.getToken())
+    }
 
-    public getToken(): string {
+    getSessionUser(): any {
+        const token = this.getToken()
+        if (token) {
+            return this.parseJwt(token)
+        }        
+        return null
+    }
+
+    getToken(): string {
         return localStorage.getItem(this.tokenName)
     }
 
-    public setToken(token: string) {
+    setToken(token: string) {
         localStorage.setItem(this.tokenName, token)
     }
 
     // TODO: this could be a simple boolean set by login() and logout(), and should check expiry on token
-    public isLoggedIn = (): boolean => {
+    isLoggedIn(): boolean {
         return !!localStorage.getItem(this.tokenName)
     }
 
-    public login(username: string, password: string): Observable<ITokenResponse> {
+    login(username: string, password: string): Observable<ITokenResponse> {
         const body = JSON.stringify({ username: username, password: password })
         // TODO: maybe make generic httpclient with content-type built in
         const headers = new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -41,6 +53,7 @@ export class AuthService {
             (response: ITokenResponse) => {
                 if (response.token) {
                     this.setToken(response.token)
+                    this.currentUser = this.parseJwt(response.token)
                     return response
                 } else {
                     return response
@@ -53,12 +66,13 @@ export class AuthService {
             )
     }
 
-    public logout = () => {
+    logout() {
         this.setToken(null)
         localStorage.removeItem(this.tokenName)
+        this.currentUser = null
     }
 
-   private parseJwt = (token: string) => {
+    private parseJwt(token: string) {
         if (token) {
             var base64Url = token.split('.')[1]
             var base64 = base64Url.replace('-', '+').replace('_', '/')

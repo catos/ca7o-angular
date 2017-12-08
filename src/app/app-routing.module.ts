@@ -5,9 +5,6 @@ import { Routes, RouterModule } from '@angular/router';
 import { ContentModule } from './content/content.module';
 
 const routes: Routes = [
-    // { path: 'login', component: LoginComponent },
-    // { path: 'register', component: RegisterComponent },
-    // { path: 'forgot-password', component: ForgotPasswordComponent },
     { path: '', redirectTo: 'content', pathMatch: 'full' },
     {
         path: 'auth',

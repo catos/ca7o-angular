@@ -5,6 +5,7 @@ import { ContentRoutingModule } from './content-routing.module';
 
 import { ContentComponent } from './content.component';
 import { NewsListComponent } from './news-list/news-list.component';
+import { FrontPageComponent } from './front-page/front-page.component';
 
 @NgModule({
     imports: [
@@ -14,7 +15,8 @@ import { NewsListComponent } from './news-list/news-list.component';
     ],
     declarations: [
         ContentComponent,
-        NewsListComponent
+        NewsListComponent,
+        FrontPageComponent
     ]
 })
 export class ContentModule { }

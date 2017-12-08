@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { AuthService } from '../auth.service';
+import { AuthService } from '../services/auth.service';
+import { ITokenResponse } from '../models/token-response.interface';
 
 @Component({
     selector: 'ca7o-nav-bar',
@@ -12,13 +13,13 @@ export class NavBarComponent implements OnInit {
 
     constructor(
         private router: Router,
-        private authService: AuthService) { }
+        private auth: AuthService) { }
 
     ngOnInit() {
     }
 
-    logout() {
-        this.authService.logout()
+    logout() {        
+        this.auth.logout()
         this.router.navigate(['/'])
     }
 
