@@ -1,9 +1,13 @@
-<h3>
-    Edit '{{user.name}}'
-    <small>#{{user._id}}</small>
-</h3>
-
 <form (ngSubmit)="onSubmit()" #userForm="ngForm" [ngFormOptions]="{updateOn: 'blur'}">
+
+    <div class="form-group">
+        <h3>
+            {{user.name}}
+        </h3>
+        <small id="passwordHelpBlock" class="form-text text-muted ">
+            Created: {{ user.created | date:'yyyy-MM-dd HH:mm' }} - Modified: {{ user.modified | date:'yyyy-MM-dd HH:mm' }}
+        </small>
+    </div>
 
     <div class="form-group">
         <label for="name">Name</label>
@@ -36,22 +40,20 @@
         </div>
     </div>
 
-    <div class="form-group">
+    <div class="form-group custom-controls">
         <legend class="col-form-legend">Type</legend>
-        <div class="form-check-inline">
-            <label class="form-check-label">
-                <input class="form-check-input" type="radio" name="type" [value]="1" [(ngModel)]="user.type" required> Regular
-            </label>
-        </div>
-        <div class="form-check-inline">
-            <label class="form-check-label">
-                <input class="form-check-input" type="radio" name="type" [value]="0" [(ngModel)]="user.type" required> Administrator
-            </label>
-        </div>
+        <label class="custom-control custom-radio">
+            <input class="custom-control-input" type="radio" name="type" [value]="1" [(ngModel)]="user.type" required>
+            <span class="custom-control-indicator"></span>
+            <span class="custom-control-description">Regular</span>
+        </label>
+        <label class="custom-control custom-radio">
+            <input class="custom-control-input" type="radio" name="type" [value]="0" [(ngModel)]="user.type" required>
+            <span class="custom-control-indicator"></span>
+            <span class="custom-control-description">Administrator</span>
+        </label>
     </div>
 
-    <hr>
-    
     <div class="form-group row">
         <div class="col">
             <button [disabled]="!userForm.valid" type="submit" class="btn btn-primary">Update</button>

@@ -20,8 +20,6 @@ export class UserService {
         if (q !== undefined) {
             params.set('q', q)
         }
-        console.log('this.baseApiUrl', this.baseApiUrl);
-        console.log('params', params);
         return this.httpAuth.get<Array<User>>(this.baseApiUrl, params)
     }
 
@@ -36,11 +34,11 @@ export class UserService {
     }
 
     public get(id: string): Observable<User> {
-        return this.http.get<User>(`${this.baseApiUrl}/${id}`)
+        return this.httpAuth.get<User>(`${this.baseApiUrl}/${id}`)
     }
 
     public update(user: User): Observable<User> {
-        return this.http.put<User>(`${this.baseApiUrl}/${user._id}`, user)
+        return this.httpAuth.put<User>(`${this.baseApiUrl}/${user._id}`, user)
     }
 
 }

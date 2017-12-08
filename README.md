@@ -8,8 +8,12 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 - https://www.json-generator.com/
 
 ## TODO
+- Merge user-edit and user-create into user-details
+- Fix routerLinkActive on admin-submenu
+- Fix filter on users
+- Add Register User component
+- Forgot password
 - Authentication:
- - https://ryanchenkie.com/angular-authentication-using-the-http-client-and-http-interceptors
  - https://blog.angular-university.io/angular-jwt-authentication/
 - Create user must check is email already exist!
 - Notifications on user edit type required

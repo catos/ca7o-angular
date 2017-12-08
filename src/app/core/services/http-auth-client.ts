@@ -7,19 +7,26 @@ import { AuthService } from "./auth.service";
 // TODO: maybe  extends HttpClient
 @Injectable()
 export class HttpAuthClient {
+
+    private headers;
+
     constructor(
         private http: HttpClient,
         private auth: AuthService
-    ) { }
+    ) {
+        this.headers = new HttpHeaders().set('Authorization', this.auth.getToken())
+    }
 
     get<T>(url: string, params?: HttpParams): Observable<T> {
         let options = {
-            headers: new HttpHeaders().set('Authorization', this.auth.getToken()),
+            headers: this.headers,
             params: params
         }
-
-        console.log('options', options);
-        console.log('url', url);
         return this.http.get<T>(url, options)
+    }
+
+    put<T>(url: string, body: any) {
+        console.log('url', url);
+        return this.http.put<T>(url, body, { headers: this.headers })
     }
 }
