@@ -1,22 +1,28 @@
 import { Injectable } from '@angular/core'
+// TODO: remove HttpClient maybe
 import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http'
 import { Observable } from 'rxjs/Observable'
 
 import { environment } from '../../environments/environment'
 import { User } from './models/user.model'
+import { HttpAuthClient } from './http-auth-client';
 
 @Injectable()
 export class UserService {
     private readonly baseApiUrl = `${environment.apiUrl}/api/users`
 
-    constructor(private http: HttpClient) { }
+    constructor(
+        private httpAuth: HttpAuthClient,
+        private http: HttpClient) { }
 
     all(q?: string): Observable<Array<User>> {
-        let params = {}
+        let params = new HttpParams()
         if (q !== undefined) {
-            params = new HttpParams().set('q', q)
+            params.set('q', q)
         }
-        return this.http.get<Array<User>>(this.baseApiUrl, { params })
+        console.log('this.baseApiUrl', this.baseApiUrl);
+        console.log('params', params);
+        return this.httpAuth.get<Array<User>>(this.baseApiUrl, params)
     }
 
     public create(user: User): Observable<User> {

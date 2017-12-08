@@ -34,9 +34,10 @@ export class UserIndexComponent implements OnInit {
     }
 
     private getUsers(filter?: string) {
-        this.userService.all(filter).subscribe(
-            users => this.users = users,
-            err => console.log('err', err)
-        )
+        // this.userService.all(filter).subscribe(
+        //     users => this.users = users,
+        //     err => console.log('err', err)
+        // )
+        this.userService.all(filter).map(users => this.users = users)
     }
 }

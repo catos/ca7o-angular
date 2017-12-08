@@ -6,6 +6,7 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http'
 import { NavBarComponent } from './nav-bar/nav-bar.component';
 import { UserService } from './user.service';
 import { AuthService } from './auth.service';
+import { HttpAuthClient } from './http-auth-client';
 
 @NgModule({
     imports: [
@@ -17,7 +18,8 @@ import { AuthService } from './auth.service';
     declarations: [NavBarComponent],
     providers: [
         UserService,
-        AuthService
+        AuthService,
+        HttpAuthClient
     ]
 })
 export class CoreModule { }

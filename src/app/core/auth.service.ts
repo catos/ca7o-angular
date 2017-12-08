@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core'
+// TODO: skal jeg lage en wrapper på http uten auth-headers og ?
 import { HttpClient, HttpHeaders } from '@angular/common/http'
 import { Response } from '@angular/http'
 import { Observable } from 'rxjs/Observable'
@@ -10,16 +11,12 @@ import { ITokenResponse } from './token-response.interface';
 @Injectable()
 export class AuthService {
     private readonly baseApiUrl = `${environment.apiUrl}/auth`
+    private tokenName: string = 'ca7o-token'
 
     // TODO: implements returnUrl...
     public returnUrl: string
 
-    private tokenName: string = 'ca7o-token'
-
-    constructor(private http: HttpClient) {
-        // var currentUser = JSON.parse(localStorage.getItem(this.tokenName))
-        // this.token = currentUser && currentUser.token
-    }
+    constructor(private http: HttpClient) {}
 
     public getToken(): string {
         return localStorage.getItem(this.tokenName)
@@ -29,27 +26,14 @@ export class AuthService {
         localStorage.setItem(this.tokenName, token)
     }
 
-    public currentUser = () => {
-        const parsedToken = this.parseJwt(this.getToken())
-        return JSON.stringify({
-            id: parsedToken.id,
-            name: parsedToken.name,
-            username: parsedToken.username
-        })
-    }
-
     // TODO: this could be a simple boolean set by login() and logout(), and should check expiry on token
     public isLoggedIn = (): boolean => {
         return !!localStorage.getItem(this.tokenName)
     }
 
-    public logout = () => {
-        this.setToken(null)
-        localStorage.removeItem(this.tokenName)
-    }
-
     public login(username: string, password: string): Observable<ITokenResponse> {
         const body = JSON.stringify({ username: username, password: password })
+        // TODO: maybe make generic httpclient with content-type built in
         const headers = new HttpHeaders({ 'Content-Type': 'application/json' })
         return this.http
             .post<ITokenResponse>(`${this.baseApiUrl}/login`, body, { headers: headers })
@@ -69,7 +53,12 @@ export class AuthService {
             )
     }
 
-    private parseJwt = (token: string) => {
+    public logout = () => {
+        this.setToken(null)
+        localStorage.removeItem(this.tokenName)
+    }
+
+   private parseJwt = (token: string) => {
         if (token) {
             var base64Url = token.split('.')[1]
             var base64 = base64Url.replace('-', '+').replace('_', '/')
