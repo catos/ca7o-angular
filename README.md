@@ -8,6 +8,7 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 - https://www.json-generator.com/
 
 ## TODO
+- Consider merging projects: https://stackoverflow.com/a/42907043
 - Merge user-edit and user-create into user-details
 - Fix routerLinkActive on admin-submenu
 - Fix filter on users
