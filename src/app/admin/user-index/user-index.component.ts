@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core'
-import * as io from 'socket.io-client'
 
-import { environment } from '../../../environments/environment'
 import { UserService } from '../../core/services/user.service'
 import { User } from '../../core/models/user.model'
 
@@ -14,21 +12,8 @@ export class UserIndexComponent implements OnInit {
     filterThreshold: number = 3
     users: Array<User>
     filter: string = ''
-    socket: SocketIOClient.Socket
 
-    constructor(private userService: UserService) {
-        
-        this.socket = io(environment.apiUrl)
-        this.socket.on('connect', () => {
-            console.log('connect')
-        })
-        this.socket.on('event', (data) => {
-            console.log('event', data)
-        })
-        this.socket.on('disconnect', () => {
-            console.log('disconnect')
-        })
-    }
+    constructor(private userService: UserService) { }
 
     ngOnInit() {
         this.getUsers()

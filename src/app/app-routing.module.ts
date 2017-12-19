@@ -19,6 +19,12 @@ const routes: Routes = [
         // data: { preload: true }
     },
     {
+        path: 'wesketch',
+        loadChildren: 'app/wesketch/wesketch.module#WesketchModule',
+        // TODO: hva er egentlig preload, og hva skal preloades ?
+        // data: { preload: true }
+    },
+    {
         path: 'admin',
         loadChildren: 'app/admin/admin.module#AdminModule',
         // TODO: implement canLoad ?
