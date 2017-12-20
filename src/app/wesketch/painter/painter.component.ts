@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild, ElementRef, HostListener } from '@angular/core'
 import { PainterHelper } from "./painter.helper";
-import { Vector2 } from "./coords.model";
+import { Vector2 } from "../models/vector-2.model";
+import { Vector2Path } from "../models/vector-2-path.model";
 
 @Component({
     selector: 'ca7o-painter',
@@ -21,14 +22,10 @@ export class PainterComponent implements OnInit {
         height: 0
     }
 
-    // TODO: rename coords to something else
-    coords: {
-        prev: Vector2
-        to: Vector2
-    }
+    path: Vector2Path = { from: new Vector2(), to: new Vector2() }
 
     // TODO: debug
-    mousePosition: Vector2
+    mousePosition: Vector2 = { x: 0, y: 0 }
 
     currentTool: 'brush'
     brushSize: 5
@@ -49,12 +46,13 @@ export class PainterComponent implements OnInit {
     ngOnInit() {
         this.context = this.canvasRef.nativeElement.getContext('2d')
 
-        this.coords.prev = { x: -1, y: -1 }
-        this.coords.to = { x: -1, y: -1 }
+        this.path.from = { x: -1, y: -1 }
+        this.path.to = { x: -1, y: -1 }
     }
 
-    @HostListener('mousemove', ['$event'])
+    // @HostListener('mousedown', ['$event'])
     mouseDown(event: MouseEvent) {
+        console.log('event', event);
         this.context.strokeStyle = this.foregroundColor
         // if (event.which === 3) {
         //     this.context.strokeStyle = this.backgroundColor
@@ -63,23 +61,26 @@ export class PainterComponent implements OnInit {
         // if (this.currentTool === 'brush') {
             // this.context.beginPath()
             // this.isDrawing = true
-            // this.coords.prev = coords
-            // this.draw(this.coords.prev, this.coords.prev)
+            // this.path.prev = path
+            // this.draw(this.path.prev, this.path.prev)
         // }
         // if (this.currentTool === 'fill') {
         //     this.fill(event)
         // }
     }
 
-    mouseUp() {
+    // @HostListener('mouseup', ['$event'])
+    mouseUp(event: MouseEvent) {
         console.log('mouseUp')
     }
 
-    mouseMove() {
-        console.log('mouseMove')
+    // @HostListener('mousemove', ['$event'])
+    mouseMove(event: MouseEvent) {
+        // console.log('mouseMove')
     }
 
-    mouseOut() {
+    // @HostListener('mouseout', ['$event'])
+    mouseOut(event: MouseEvent) {
         console.log('mouseOut')
     }
 

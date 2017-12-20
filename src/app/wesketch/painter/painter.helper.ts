@@ -9,6 +9,10 @@ export class PainterHelper {
             y: 0
         }
 
+        if (event === undefined) {
+            return coords
+        }
+
         if (event.offsetX !== undefined) {
             coords.x = event.offsetX
             coords.y = event.offsetY
