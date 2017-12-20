@@ -1,0 +1,50 @@
+<div class="painter" v-bind:class="cursorClass">
+
+    <div class="painter-tools">
+        <button (click)="clearCanvas()">
+            <i class="fa fa-2x fa-file-o" aria-hidden="true"></i>
+        </button>
+        <button (click)="undo()">
+            <i class="fa fa-2x fa-undo" aria-hidden="true"></i>
+        </button>
+        <button (click)="changeTool('fill')">
+            <i class="fa fa-2x fa-tint" aria-hidden="true"></i>
+        </button>
+        <button (click)="changeTool('brush')">
+            <i class="fa fa-2x fa-paint-brush" aria-hidden="true"></i>
+        </button>
+        <button (click)="changeBrushSize(4)">
+            <i class="fa fa-2x fa-plus" aria-hidden="true"></i>
+        </button>
+        <button (click)="changeBrushSize(-4)">
+            <i class="fa fa-2x fa-minus" aria-hidden="true"></i>
+        </button>
+        <!-- <div v-for="color in colors" v-bind:key="color.id" v-bind:class="{ 'selected-color': color.isSelected }" v-bind:style="{ backgroundColor: color.hex }" v-bind:title="color.name" class="color" @click="changeForegroundColor(color)">
+            </div> -->
+    </div>
+
+    <div class="canvas">
+        <canvas #myCanvas width="500" height="500" (mousedown)="mouseDown()" (mouseup)="mouseUp()" (mousemove)="mouseMove()" (mouseout)="mouseOut()">
+        </canvas>
+    </div>
+
+    <div class="debug">
+        <ul>
+            <li>Mouse position: {{ mousePosition.x }}, {{ mousePosition.y }}</li>
+            <!-- <li>confirmOperation: {{ confirmOperation }}</li>
+            <li>Is drawing: {{ isDrawing }}</li>
+            <li>Is shift key down: {{ isShiftKeyDown }}</li>
+            <li>drawingDirection: {{ drawingDirection }}</li>
+            <li>current tool: {{ currentTool }}</li>
+            <li>brushSize: {{ brushSize }}</li>
+            <li>foregroundColor: {{ foregroundColor }}</li>
+            <li>
+                <ul>
+                    <li v-for="item in movementBuffer" :key="item.id">
+                        x: {{ item.x }}, y: {{ item.y }}
+                    </li>
+                </ul>
+            </li> -->
+        </ul>
+    </div>
+</div>

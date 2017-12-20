@@ -21,6 +21,9 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 - http://brianflove.com/2017/07/17/angular-delete-confirmation/
 - Chat
 - Wesketch
+ - http://teropa.info/blog/2016/12/12/graphics-in-angular-2.html
+ - http://embed.plnkr.co/LFhOuepJrnPVlwUXmkUt/
+ - https://github.com/catos/ca7o-wesketch-vue/blob/master/src/components/painter/Painter.vue
 
 ## Deploy
 - git push heroku master
