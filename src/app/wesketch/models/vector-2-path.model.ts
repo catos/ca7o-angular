@@ -1,4 +1,4 @@
-import { Vector2 } from "./vector.model";
+import { Vector2 } from "./vector-2.model";
 
 export class Vector2Path {
     from: Vector2

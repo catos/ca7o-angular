@@ -20,9 +20,10 @@ export class ChatComponent implements OnInit {
         this.socket.on('connect', () => {
             console.log('connect')
         })
-        this.socket.on('event', (data) => {
-            console.log('event', data)
-            this.messages.push(data)
+        this.socket.on('event', (event: WesketchClientEvent) => {
+            if (event.type === 'message') {
+                this.messages.push(event)
+            }
         })
         this.socket.on('disconnect', () => {
             console.log('disconnect')

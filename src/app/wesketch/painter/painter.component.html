@@ -24,27 +24,28 @@
     </div>
 
     <div class="canvas">
-        <canvas #myCanvas width="500" height="500" (mousedown)="mouseDown()" (mouseup)="mouseUp()" (mousemove)="mouseMove()" (mouseout)="mouseOut()">
+        <canvas #myCanvas width="500" height="500" (mousedown)="mouseDown($event)" (mouseup)="mouseUp($event)" (mousemove)="mouseMove($event)" (mouseout)="mouseOut($event)">
+
         </canvas>
     </div>
 
     <div class="debug">
         <ul>
             <li>Mouse position: {{ mousePosition.x }}, {{ mousePosition.y }}</li>
-            <!-- <li>confirmOperation: {{ confirmOperation }}</li>
-            <li>Is drawing: {{ isDrawing }}</li>
-            <li>Is shift key down: {{ isShiftKeyDown }}</li>
-            <li>drawingDirection: {{ drawingDirection }}</li>
             <li>current tool: {{ currentTool }}</li>
             <li>brushSize: {{ brushSize }}</li>
             <li>foregroundColor: {{ foregroundColor }}</li>
+            <li>Is drawing: {{ isDrawing }}</li>
+            <li>drawingDirection: {{ drawingDirection }}</li>
+            <li>confirmOperation: {{ confirmOperation }}</li>
+            <li>Is shift key down: {{ isShiftKeyDown }}</li>
             <li>
                 <ul>
-                    <li v-for="item in movementBuffer" :key="item.id">
-                        x: {{ item.x }}, y: {{ item.y }}
+                    <li *ngFor="let pos of movementBuffer">
+                        x: {{ pos.x }}, y: {{ pos.y }}
                     </li>
                 </ul>
-            </li> -->
+            </li>
         </ul>
     </div>
 </div>

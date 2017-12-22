@@ -1,7 +1,7 @@
-import { Vector2 } from "./coords.model";
+import { Vector2 } from "../models/vector-2.model";
 
 export class PainterHelper {
-    // movementBuffer: Array<Coords>
+    movementBuffer: Array<Vector2> = new Array<Vector2>()
 
     getCoords(event, lineWidth): Vector2 {
         var coords = {
@@ -31,21 +31,19 @@ export class PainterHelper {
     }
 
     // TODO: calculateDrawingDirection
-    // calculateDrawingDirection (coords) {
-    //     let id = this.movementBuffer.length
-    //     if (this.movementBuffer.length === 10) {
-    //         const removedItem = this.movementBuffer.shift()
-    //         id = removedItem.id
-    //     }
-    //     this.movementBuffer.push({ id: id++, x: coords.x, y: coords.y })
+    calculateDrawingDirection (coords) {
+        if (this.movementBuffer.length === 10) {
+            const removedItem = this.movementBuffer.shift()
+        }
+        this.movementBuffer.push({ x: coords.x, y: coords.y })
 
-    //     const bufferLength = this.movementBuffer.length
-    //     if (bufferLength === 10) {
-    //         const xVelocity = Math.abs(this.movementBuffer[0].x - this.movementBuffer[bufferLength - 1].x)
-    //         const yVelocity = Math.abs(this.movementBuffer[0].y - this.movementBuffer[bufferLength - 1].y)
-    //         return xVelocity > yVelocity ? 'horizontal' : 'vertical'
-    //     }
+        const bufferLength = this.movementBuffer.length
+        if (bufferLength === 10) {
+            const xVelocity = Math.abs(this.movementBuffer[0].x - this.movementBuffer[bufferLength - 1].x)
+            const yVelocity = Math.abs(this.movementBuffer[0].y - this.movementBuffer[bufferLength - 1].y)
+            return xVelocity > yVelocity ? 'horizontal' : 'vertical'
+        }
 
-    //     return ''
-    // }
+        return ''
+    }
 }
