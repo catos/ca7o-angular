@@ -12,7 +12,8 @@ import { WebSocketService } from "../../core/services/web-socket.service";
     styleUrls: ['./chat.component.css']
 })
 export class ChatComponent implements OnInit {
-    messages: Array<WsClientEvent> = []
+    // TODO: MessageType to replace any
+    messages: Array<any> = []
 
     constructor(
         private auth: AuthService,
@@ -22,9 +23,17 @@ export class ChatComponent implements OnInit {
     ngOnInit() {
         this.wss.on('event').subscribe(
             (response: WsClientEvent) => {
-                if (response.type === WsClientEventType.Message || 
-                    response.type === WsClientEventType.SystemMessage) {
-                    this.messages.push(response)
+                // if (response.type === WsClientEventType.Message || 
+                //     response.type === WsClientEventType.SystemMessage) {
+                if (response.type !== WsClientEventType.Draw) {
+
+                    const from = response.value.name || 'system'
+                    const message = response.value.message || WsClientEventType[response.type] || ''
+                    this.messages.push({
+                        timestamp: response.timestamp,
+                        from: from,
+                        message: message
+                    })
                 }
             }
         )

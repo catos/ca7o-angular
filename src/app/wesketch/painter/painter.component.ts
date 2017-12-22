@@ -59,10 +59,24 @@ export class PainterComponent implements OnInit {
     // TODO: refactor
     onEvent(event: WsClientEvent) {
         switch (event.type) {
+            case WsClientEventType.StartDraw:
+                this.context.beginPath()
+                break;
+
             case WsClientEventType.Draw:
                 this.context.moveTo(event.value.from.x, event.value.from.y)
                 this.context.lineTo(event.value.to.x, event.value.to.y)
                 this.context.stroke()
+                break;
+
+            case WsClientEventType.StopDraw:
+                this.context.closePath()
+                break;
+
+            case WsClientEventType.ClearCanvas:
+                // this.context.fillStyle = '#ffffff'
+                // this.context.fillRect(0, 0, this.context.canvas.width, this.context.canvas.height)
+                this.context.clearRect(0, 0, this.context.canvas.width, this.context.canvas.height);
                 break;
 
             // TODO: RPC vs GameStateSync
@@ -90,7 +104,9 @@ export class PainterComponent implements OnInit {
         this.wss.emit(WsClientEventType.Draw, { from: from, to: to })
     }
 
-    // ----------------------------------------------------------
+    clearCanvas() {
+        this.wss.emit(WsClientEventType.ClearCanvas, {})
+    }
 
     changeForegroundColor(color: any) {
         this.wss.emit(WsClientEventType.GameStateChange, { color })
@@ -99,6 +115,8 @@ export class PainterComponent implements OnInit {
     // ----------------------------------------------------------
 
     mouseDown(event: MouseEvent) {
+        this.wss.emit(WsClientEventType.StartDraw, {})
+
         this.context.strokeStyle = this.foregroundColor
         if (event.which === 3) {
             this.context.strokeStyle = this.backgroundColor
@@ -118,6 +136,8 @@ export class PainterComponent implements OnInit {
     }
 
     mouseUp(event: MouseEvent) {
+        this.wss.emit(WsClientEventType.StopDraw, {})
+        
         this.context.closePath()
         this.isDrawing = false
         this.drawingDirection = ''
@@ -126,7 +146,7 @@ export class PainterComponent implements OnInit {
     mouseMove(event: MouseEvent) {
         this.path.to = this.helper.getCoords(event, this.context.lineWidth)
         this.drawingDirection = this.helper.calculateDrawingDirection(this.path.from)
-       
+
         if (this.isDrawing) {
             // Lock axis according to drawingDirection
             if (event.shiftKey) {

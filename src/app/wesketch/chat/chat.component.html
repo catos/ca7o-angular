@@ -2,8 +2,8 @@
     <div #chat id="chat" [scrollTop]="chat.scrollHeight">
         <div class="message" *ngFor="let m of messages">
             <span class="timestamp text-muted">{{ m.timestamp | date:'HH:mm:ss' }}</span>
-            <span class="user" title="{{ m.client }}">{{ m.value.name }}: </span>
-            {{ m.value.message }}
+            <span *ngIf="m.from" class="from" title="{{ m.client }} - {{ m.type }}">{{ m.from }}: </span>
+            {{ m.message }}
         </div>
     </div>
     <input #newMessage id="new-message" type="text" (keyup.enter)="sendMessage(newMessage.value); newMessage.value= ''" />

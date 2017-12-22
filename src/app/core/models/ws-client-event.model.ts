@@ -9,6 +9,9 @@ export enum WsClientEventType {
     Message,
     SystemMessage,
 
-    GameStateChange,
-    Draw
+    StartDraw,
+    Draw,
+    StopDraw,
+    ClearCanvas,
+    GameStateChange
 }
