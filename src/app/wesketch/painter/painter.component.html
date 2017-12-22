@@ -19,33 +19,35 @@
         <button (click)="changeBrushSize(-4)">
             <i class="fa fa-2x fa-minus" aria-hidden="true"></i>
         </button>
-        <!-- <div v-for="color in colors" v-bind:key="color.id" v-bind:class="{ 'selected-color': color.isSelected }" v-bind:style="{ backgroundColor: color.hex }" v-bind:title="color.name" class="color" @click="changeForegroundColor(color)">
-            </div> -->
+
+        <div *ngFor="let color of colors" class="color" [class.selected-color]="color.isSelected" [style.background-color]="color.hex"
+            [title]="color.name" (click)="changeForegroundColor(color)">
+        </div>
     </div>
 
     <div class="canvas">
-        <canvas #myCanvas width="500" height="500" (mousedown)="mouseDown($event)" (mouseup)="mouseUp($event)" (mousemove)="mouseMove($event)" (mouseout)="mouseOut($event)">
+        <canvas #myCanvas width="500" height="500" (mousedown)="mouseDown($event)" (mouseup)="mouseUp($event)" (mousemove)="mouseMove($event)"
+            (mouseout)="mouseOut($event)">
 
         </canvas>
     </div>
 
-    <div class="debug">
+    <div class="debug alert alert-danger">
         <ul>
-            <li>Mouse position: {{ mousePosition.x }}, {{ mousePosition.y }}</li>
-            <li>current tool: {{ currentTool }}</li>
-            <li>brushSize: {{ brushSize }}</li>
-            <li>foregroundColor: {{ foregroundColor }}</li>
-            <li>Is drawing: {{ isDrawing }}</li>
-            <li>drawingDirection: {{ drawingDirection }}</li>
-            <li>confirmOperation: {{ confirmOperation }}</li>
-            <li>Is shift key down: {{ isShiftKeyDown }}</li>
             <li>
-                <ul>
-                    <li *ngFor="let pos of movementBuffer">
-                        x: {{ pos.x }}, y: {{ pos.y }}
-                    </li>
-                </ul>
-            </li>
+                <label>MousePosition:</label> {{ mousePosition.x }}, {{ mousePosition.y }}</li>
+            <li>
+                <label>CurrentTool:</label> {{ currentTool }}</li>
+            <li>
+                <label>BrushSize:</label> {{ brushSize }}</li>
+            <li>
+                <label>ForegroundColor:</label> {{ foregroundColor }}</li>
+            <li>
+                <label>IsDrawing:</label> {{ isDrawing }}</li>
+            <li>
+                <label>DrawingDirection:</label> {{ drawingDirection }}</li>
+            <li>
+                <label>ConfirmOperation:</label> {{ confirmOperation }}</li>
         </ul>
     </div>
 </div>

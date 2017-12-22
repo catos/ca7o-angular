@@ -28,13 +28,31 @@
     margin-left: 2px;
 }
 .selected-color {
-    border-style: dashed;
-    border-width: 2px;
+    margin-bottom: 4px;
 }
 .painter .canvas {
     background-color: #f1f1f1;
+    cursor: crosshair;
 }
 .painter .canvas canvas {
     border: 4px solid #333;
     background-color: white;
+}
+
+.debug {
+    position: fixed;
+    background-color: #f8d7daab;
+    bottom: 10px;
+    left: 10px;
+    padding: 10px 20px;
+    min-width: 300px;
+}
+
+.debug ul {
+    list-style: none;
+    padding: 0;
+}
+
+.debug ul li label {
+    font-weight: 700;
 }

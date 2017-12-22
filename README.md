@@ -20,10 +20,16 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 - Notifications on user edit type required
 - http://brianflove.com/2017/07/17/angular-delete-confirmation/
 - Chat
+ - https://github.com/avatsaev/kawachat2-client/blob/master/src/app/modules/chat/services/chat.service.ts
 - Wesketch
  - http://teropa.info/blog/2016/12/12/graphics-in-angular-2.html
  - http://embed.plnkr.co/LFhOuepJrnPVlwUXmkUt/
  - https://github.com/catos/ca7o-wesketch-vue/blob/master/src/components/painter/Painter.vue
+- Socket IO with RxJs: https://tutorialedge.net/typescript/angular/angular-socket-io-tutorial/
+- WebSocketService
+ - RPC vs. GameStateSync
+ - Create minimal overhead emit to use for drawing-function
+
 
 ## Deploy
 - git push heroku master

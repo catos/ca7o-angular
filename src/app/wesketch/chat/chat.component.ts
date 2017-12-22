@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core'
-import * as io from 'socket.io-client'
 
 import { environment } from '../../../environments/environment'
 import { AuthService } from "../../core/services/auth.service";
 
-import { WesketchClientEvent } from '../models/wesketch-client-event.model'
+import { WsClientEvent, WsClientEventType } from '../../core/models/ws-client-event.model'
+import { WebSocketService } from "../../core/services/web-socket.service";
 
 @Component({
     selector: 'ca7o-chat',
@@ -12,26 +12,22 @@ import { WesketchClientEvent } from '../models/wesketch-client-event.model'
     styleUrls: ['./chat.component.css']
 })
 export class ChatComponent implements OnInit {
-    socket: SocketIOClient.Socket
-    messages: Array<WesketchClientEvent> = []
+    messages: Array<WsClientEvent> = []
 
-    constructor(private auth: AuthService) {
-        this.socket = io(environment.apiUrl)
-        this.socket.on('connect', () => {
-            console.log('connect')
-        })
-        this.socket.on('event', (event: WesketchClientEvent) => {
-            if (event.type === 'message') {
-                this.messages.push(event)
-            }
-        })
-        this.socket.on('disconnect', () => {
-            console.log('disconnect')
-        })
-
-    }
+    constructor(
+        private auth: AuthService,
+        private wss: WebSocketService
+    ) {}
 
     ngOnInit() {
+        this.wss.on('event').subscribe(
+            (response: WsClientEvent) => {
+                if (response.type === WsClientEventType.Message || 
+                    response.type === WsClientEventType.SystemMessage) {
+                    this.messages.push(response)
+                }
+            }
+        )
     }
 
     sendMessage(value: string) {        
@@ -39,17 +35,10 @@ export class ChatComponent implements OnInit {
             return
         }
 
-        const clientEvent: WesketchClientEvent = {
-            client: this.socket.id,
-            timestamp: new Date(),
-            type: 'message',
-            value: {
-                name: this.auth.currentUser.name,
-                message: value
-            }
-        }
-
-        this.socket.emit('event', clientEvent)
+        this.wss.emit(WsClientEventType.Message, {
+            name: this.auth.currentUser.name,
+            message: value
+        })
     }
 
 }

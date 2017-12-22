@@ -1,13 +1,11 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core'
-import * as io from 'socket.io-client'
 
-import { environment } from '../../../environments/environment'
+import { WsClientEvent, WsClientEventType } from '../../core/models/ws-client-event.model'
+import { WebSocketService } from "../../core/services/web-socket.service";
 import { PainterHelper } from "./painter.helper";
-
 import { PainterTool } from "../models/painter-tool.enum";
 import { Vector2 } from "../models/vector-2.model";
 import { Vector2Path } from "../models/vector-2-path.model";
-import { WesketchClientEvent } from "../models/wesketch-client-event.model";
 
 @Component({
     selector: 'ca7o-painter',
@@ -17,9 +15,7 @@ import { WesketchClientEvent } from "../models/wesketch-client-event.model";
 export class PainterComponent implements OnInit {
     @ViewChild('myCanvas') canvasRef: ElementRef;
     context: CanvasRenderingContext2D
-    socket: SocketIOClient.Socket
 
-    movementBuffer: Array<any>
     confirmOperation: boolean = false
     isDrawing: boolean = false
     drawingDirection: string = ''
@@ -37,36 +33,70 @@ export class PainterComponent implements OnInit {
     brushSize: number = 5
     foregroundColor: string = '#000000'
     backgroundColor: string = '#ffffff'
-    colors: [
-        { id: 'niggahs-black', name: 'Niggahs Black', hex: '#000000', isSelected: true },
+    colors: Array<any> = [
+        { id: 'niggahs-black', name: 'Niggahs Black', hex: '#000000', isSelected: false },
         { id: 'titanium-white', name: 'Titanium White', hex: '#ffffff', isSelected: false },
-        { id: 'phtalo-green', name: 'Phtalo Green', hex: '#123524', isSelected: false },
+        { id: 'phtalo-green', name: 'Phtalo Green', hex: '#123524', isSelected: true },
         { id: 'prussian-blue', name: 'Prussian Blue', hex: '#003153', isSelected: false },
         { id: 'van-dyke-brown', name: 'Van Dyke Brown', hex: '#584630', isSelected: false },
         { id: 'alizarin-crimson', name: 'Alizarin Crimson', hex: '#E32636', isSelected: false },
         { id: 'cadmium-yellow', name: 'Cadmium Yellow', hex: '#fff600', isSelected: false }
     ]
 
-    constructor(private helper: PainterHelper) {
-        this.socket = io(environment.apiUrl)
-
-        this.socket.on('event', (event: WesketchClientEvent) => {
-            if (event.type === 'draw') {
-                console.log('event.value', event.value);
-                this.context.moveTo(event.value.from.x, event.value.from.y)
-                this.context.lineTo(event.value.to.x, event.value.to.y)
-                this.context.stroke()
-            }
-        })
-
+    constructor(
+        private helper: PainterHelper,
+        private wss: WebSocketService
+    ) {
+        this.wss.on('event').subscribe(event => this.onEvent(event))
     }
 
     ngOnInit() {
         this.context = this.canvasRef.nativeElement.getContext('2d')
-
-        this.path.from = { x: -1, y: -1 }
-        this.path.to = { x: -1, y: -1 }
     }
+
+    // ----------------------------------------------------------
+
+    // TODO: refactor
+    onEvent(event: WsClientEvent) {
+        switch (event.type) {
+            case WsClientEventType.Draw:
+                this.context.moveTo(event.value.from.x, event.value.from.y)
+                this.context.lineTo(event.value.to.x, event.value.to.y)
+                this.context.stroke()
+                break;
+
+            // TODO: RPC vs GameStateSync
+            case WsClientEventType.GameStateChange:
+                console.log('gamestatechange', event)
+
+                this.colors.forEach(c => {
+                    c.isSelected = c.id === event.value.color.id
+                })
+                this.foregroundColor = event.value.color.hex
+
+                // const sound = new Howl({
+                //     src: '/static/sounds/' + color.id + '.ogg',
+                //     volume: 0.5
+                // })        
+                // sound.play()
+                break;
+        }
+    }
+
+    // ----------------------------------------------------------
+
+    // TODO: if current client is drawing player, emit event AND draw (ignore .on('draw'))
+    draw(from: Vector2, to: Vector2) {
+        this.wss.emit(WsClientEventType.Draw, { from: from, to: to })
+    }
+
+    // ----------------------------------------------------------
+
+    changeForegroundColor(color: any) {
+        this.wss.emit(WsClientEventType.GameStateChange, { color })
+    }
+
+    // ----------------------------------------------------------
 
     mouseDown(event: MouseEvent) {
         this.context.strokeStyle = this.foregroundColor
@@ -94,10 +124,9 @@ export class PainterComponent implements OnInit {
     }
 
     mouseMove(event: MouseEvent) {
-        console.log('event.shiftKey', event.shiftKey);
         this.path.to = this.helper.getCoords(event, this.context.lineWidth)
         this.drawingDirection = this.helper.calculateDrawingDirection(this.path.from)
-        this.movementBuffer = this.helper.movementBuffer
+       
         if (this.isDrawing) {
             // Lock axis according to drawingDirection
             if (event.shiftKey) {
@@ -118,21 +147,4 @@ export class PainterComponent implements OnInit {
         this.isDrawing = false
     }
 
-    draw(from: Vector2, to: Vector2) {
-        // this.context.moveTo(from.x, from.y)
-        // this.context.lineTo(to.x, to.y)
-        // this.context.stroke()
-
-        const clientEvent: WesketchClientEvent = {
-            client: this.socket.id,
-            timestamp: new Date(),
-            type: 'draw',
-            value: { 
-                from: from, to: to 
-            }
-        }
-
-        this.socket.emit('event', clientEvent)
-
-    }
 }

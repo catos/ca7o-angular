@@ -2,7 +2,7 @@
     <div #chat id="chat" [scrollTop]="chat.scrollHeight">
         <div class="message" *ngFor="let m of messages">
             <span class="timestamp text-muted">{{ m.timestamp | date:'HH:mm:ss' }}</span>
-            <span class="user">{{ m.value.name }}: </span>
+            <span class="user" title="{{ m.client }}">{{ m.value.name }}: </span>
             {{ m.value.message }}
         </div>
     </div>

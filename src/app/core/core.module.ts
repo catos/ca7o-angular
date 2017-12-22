@@ -7,6 +7,7 @@ import { NavBarComponent } from './nav-bar/nav-bar.component';
 import { UserService } from './services/user.service';
 import { AuthService } from './services/auth.service';
 import { HttpAuthClient } from './services/http-auth-client';
+import { WebSocketService } from "./services/web-socket.service";
 
 @NgModule({
     imports: [
@@ -19,7 +20,8 @@ import { HttpAuthClient } from './services/http-auth-client';
     providers: [
         UserService,
         AuthService,
-        HttpAuthClient
+        HttpAuthClient,
+        WebSocketService
     ]
 })
 export class CoreModule { }

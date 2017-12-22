@@ -17,7 +17,7 @@ import { PainterHelper } from "./painter/painter.helper"
         WesketchRoutingModule
     ],
     providers: [
-        PainterHelper
+        PainterHelper        
     ],
     declarations: [WesketchComponent, ChatComponent, PainterComponent]
 })
