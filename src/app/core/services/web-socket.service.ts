@@ -8,7 +8,7 @@ import { AuthService } from "../../core/services/auth.service";
 
 @Injectable()
 export class WebSocketService {
-    socket: SocketIOClient.Socket
+    socket: any
 
     constructor(private auth: AuthService) {
         // Create socket
