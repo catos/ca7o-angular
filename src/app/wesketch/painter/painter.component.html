@@ -4,7 +4,7 @@
         <button (click)="clearCanvas()">
             <i class="fa fa-2x fa-file" aria-hidden="true"></i>
         </button>
-        <button (click)="undo()">
+        <!-- <button (click)="undo()">
             <i class="fa fa-2x fa-undo" aria-hidden="true"></i>
         </button>
         <button (click)="changeTool('fill')">
@@ -18,7 +18,7 @@
         </button>
         <button (click)="changeBrushSize(-4)">
             <i class="fa fa-2x fa-minus" aria-hidden="true"></i>
-        </button>
+        </button> -->
 
         <div *ngFor="let color of colors" class="color" [class.selected-color]="color.isSelected" [style.background-color]="color.hex"
             [title]="color.name" (click)="changeForegroundColor(color)">
