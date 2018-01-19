@@ -37,7 +37,9 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 ### Deploy setup
 - heroku login
-- heroku git:remote -a ca7o
+- Add heroku remote as a remote in your current repository: `heroku git:remote -a ca7o`
+- Check how many dynos are running: `heroku ps`
+- Run app locally: `heroku local -p 1337`
 - "postinstall": "ng build --aot --prod"
 
 ## Development server
