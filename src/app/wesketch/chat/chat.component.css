@@ -1,0 +1,25 @@
+#chat-wrapper {
+    margin: 10px;
+    border: 1px solid #333;
+}
+
+#chat {
+    height: 300px;
+    overflow-y: scroll;
+    border: 1px solid #333;
+    padding: 10px;
+}
+
+#new-message {
+    padding: 2px 5px;
+    width: 100%;
+}
+
+.timestamp {
+    font-size: 0.75em;
+}
+
+.from {
+    font-size: 0.9em;
+    font-weight: 700;
+}

@@ -1,0 +1,65 @@
+<form (ngSubmit)="onSubmit()" #userForm="ngForm" [ngFormOptions]="{updateOn: 'blur'}">
+
+    <div class="form-group">
+        <h3>
+            {{user.name}}
+        </h3>
+        <small id="passwordHelpBlock" class="form-text text-muted ">
+            Created: {{ user.created | date:'yyyy-MM-dd HH:mm' }} - Modified: {{ user.modified | date:'yyyy-MM-dd HH:mm' }}
+        </small>
+    </div>
+
+    <div class="form-group">
+        <label for="name">Name</label>
+        <input type="text" class="form-control" id="name" name="name" required minlength="3" [(ngModel)]="user.name" [ngModelOptions]="{updateOn: 'blur'}"
+            #name="ngModel">
+        <div *ngIf="name.invalid && (name.dirty || name.touched)" class="alert alert-danger">
+            <div *ngIf="name.errors.required">
+                name is required.
+            </div>
+            <div *ngIf="name.errors.minlength">
+                name must be at least 3 characters long.
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="username">Username</label>
+        <input type="email" class="form-control" id="username" name="username" required minlength="5" email [(ngModel)]="user.username"
+            #username="ngModel">
+        <div *ngIf="username.invalid && (username.dirty || username.touched)" class="alert alert-danger">
+            <div *ngIf="username.errors.required">
+                username is required.
+            </div>
+            <div *ngIf="username.errors.minlength">
+                username must be at least 5 characters long.
+            </div>
+            <div *ngIf="username.errors.email">
+                username must be a valid email address.
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group custom-controls">
+        <legend class="col-form-legend">Type</legend>
+        <label class="custom-control custom-radio">
+            <input class="custom-control-input" type="radio" name="type" [value]="1" [(ngModel)]="user.type" required>
+            <span class="custom-control-indicator"></span>
+            <span class="custom-control-description">Regular</span>
+        </label>
+        <label class="custom-control custom-radio">
+            <input class="custom-control-input" type="radio" name="type" [value]="0" [(ngModel)]="user.type" required>
+            <span class="custom-control-indicator"></span>
+            <span class="custom-control-description">Administrator</span>
+        </label>
+    </div>
+
+    <div class="form-group row">
+        <div class="col">
+            <button [disabled]="!userForm.valid" type="submit" class="btn btn-primary">Update</button>
+        </div>
+        <div class="col text-right">
+            <button class="btn btn-danger" (click)="delete()">Delete user</button>
+        </div>
+    </div>
+</form>
